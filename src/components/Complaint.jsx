@@ -14,10 +14,12 @@ const Complaint = () => {
   async function getUser() {
     try {
       const response = await axios.get('http://localhost:3000/api/get-complaints');
+      toast.success(response.data.message);
       const resolved = response.data.filter((item) => item.status === "Done");
       const unResolved = response.data.filter((item) => item.status === "Pending");
       setResolvedData(resolved);
       setUnResolvedData(unResolved);
+
     } catch (error) {
       console.error("Error fetching complaints:", error);
     }

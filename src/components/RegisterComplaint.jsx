@@ -41,12 +41,12 @@ const RegisterComplaint = () => {
       const response = await axios.post("http://localhost:3000/api/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+      console.log("Response after submitting complaint:", response.data);
       toast.success(response.data.message);
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
-      console.log("Error in submitting complaint:", error.response.data);
-      toast.error(error || "An error occurred in submitting the complaint");
+      console.log("Error in submitting complaint:", error.response.data.message);
+      toast.error(error.response.data.message || "An error occurred in submitting the complaint");
     }
   };
 
