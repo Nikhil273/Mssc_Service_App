@@ -124,13 +124,13 @@ const Complaint = () => {
                   <td className="px-6 py-4">{item.areatype}</td>
                   <td className="px-6 py-4">{item.fullDescription}</td>
                   <td className="px-6 py-4 text-green-400">
-                    <Link to={item.image}>View</Link>
+                    <Link className='text-[#fe6119]' to={item.image}>View</Link>
                   </td>
                   <td className="px-6 py-4">
                     <button
                       // item._id is the unique id of the complaint comes from MongoDB
                       onClick={() => toggleStatus(item._id)}
-                      className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
+                      className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all cursor-pointer"
                     >
                       {item.status}
                     </button>
@@ -139,7 +139,7 @@ const Complaint = () => {
                     <button
 
                       onClick={() => deleteHandler(item._id)}
-                      className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
+                      className="bg-red-500 hover:bg-white hover:text-red-600 text-white font-bold py-1 px-3 rounded transition-all cursor-pointer"
                     >
                       Delete
                     </button>
@@ -182,9 +182,9 @@ const Complaint = () => {
                 <td className="px-6 py-4">{item.areatype}</td>
                 <td className="px-6 py-4">{item.fullDescription}</td>
                 <td className="px-6 py-4 text-green-400">
-                  <Link to={item.image}>View</Link>
+                  <Link className='text-[#fe6119]' to={item.image}>View</Link>
                 </td>
-                <td className="px-6 py-4 text-green-400">{item.status}</td>
+                <td className="px-3 py-1 text-green-500  ">{item.status}</td>
               </tr>
             ))}
           </tbody>

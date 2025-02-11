@@ -24,6 +24,8 @@ const RegisterComplaint = () => {
       toast.error("Please Fill Out All Fields");
       return;
     }
+    console.log("<-------From RegisterComplaint.jsx------->");
+
     try {
       const formData = new FormData();
       formData.append("username", username);
@@ -43,6 +45,7 @@ const RegisterComplaint = () => {
       toast.success(response.data.message);
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
+      console.log("Error in submitting complaint:", error.response.data);
       toast.error(error || "An error occurred in submitting the complaint");
     }
   };
@@ -175,19 +178,6 @@ const RegisterComplaint = () => {
           </div>
 
           <div>
-            <label className="block text-gray-300 font-semibold mb-2" htmlFor="fullDescription">
-              Description
-            </label>
-            <textarea
-              className="w-full p-3 border rounded-lg bg-gray-700 text-white"
-              id="fullDescription"
-              placeholder="Enter your description"
-              value={fullDescription}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-
-          <div>
             <label className="block text-gray-300 font-semibold mb-2">Upload Image</label>
             <input
               className="w-full p-3 border rounded-lg bg-gray-700 text-white"
@@ -196,6 +186,20 @@ const RegisterComplaint = () => {
             />
           </div>
         </div>
+
+        <div className=" col-span-2 ">
+          <label className="block text-gray-300 font-semibold mb-2" htmlFor="fullDescription">
+            Description
+          </label>
+          <textarea
+            className="w-full p-3 border rounded-lg bg-gray-700 text-white"
+            id="fullDescription"
+            placeholder="Enter your description"
+            value={fullDescription}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
 
         {/* Submit Button - Spans Both Columns */}
         <div className="col-span-2">
