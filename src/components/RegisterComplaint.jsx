@@ -41,7 +41,7 @@ const RegisterComplaint = () => {
       });
 
       toast.success(response.data.message);
-      setTimeout(() => navigate("/"), 1000);
+      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred in submitting the complaint");
     }
