@@ -1,16 +1,19 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Complaint = () => {
+  const navigate = useNavigate();
   const [unResolvedData, setUnResolvedData] = useState([]);
   const [resolvedData, setResolvedData] = useState([]);
   const [selectedUsername, setSelectedUsername] = useState("");
 
   async function getUser() {
     try {
-      const response = await axios.get('http://localhost:3000/api/add');
+      const response = await axios.get('http://localhost:3000/api/get-complaints');
       const resolved = response.data.filter((item) => item.status === "Done");
       const unResolved = response.data.filter((item) => item.status === "Pending");
       setResolvedData(resolved);
@@ -45,6 +48,24 @@ const Complaint = () => {
       if (error.response) console.log("Server Error:", error.response.data);
     }
   };
+
+  const deleteHandler = async (id) => {
+    console.log("Delete Status for ID:", id); // Check if function is being called
+    try {
+      const response = await axios.delete(`http://localhost:3000/api/delete/${id}`);
+      toast.success(response.data.message);
+      setUnResolvedData(unResolvedData.filter((item) => item._id !== id));
+      // Refresh or update state to remove deleted item
+    } catch (error) {
+      toast.error("Failed <fn/>>to delete complaint", error);
+    }
+  };
+
+
+
+
+
+
 
 
   const uniqueUsernames = [...new Set(unResolvedData.map(item => item.username))];
@@ -94,6 +115,7 @@ const Complaint = () => {
               <th className="px-6 py-3">Description</th>
               <th className="px-6 py-3">Image</th>
               <th className="px-6 py-3">Status</th>
+              <th className="px-6 py-3">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -117,6 +139,15 @@ const Complaint = () => {
                     className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
                   >
                     {item.status}
+                  </button>
+                </td>
+                <td className="px-6 py-4">
+                  <button
+
+                    onClick={() => deleteHandler(item._id)}
+                    className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
+                  >
+                    Delete
                   </button>
                 </td>
               </tr>
