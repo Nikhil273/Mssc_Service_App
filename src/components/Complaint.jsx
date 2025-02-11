@@ -61,13 +61,6 @@ const Complaint = () => {
     }
   };
 
-
-
-
-
-
-
-
   const uniqueUsernames = [...new Set(unResolvedData.map(item => item.username))];
   const filteredUnresolved = selectedUsername
     ? unResolvedData.filter(item => item.username === selectedUsername)
@@ -100,62 +93,65 @@ const Complaint = () => {
       </div>
 
       {/* Pending Complaints Table */}
-      <div className="relative overflow-x-auto shadow-lg rounded-lg">
-        <h2 className="text-2xl font-semibold text-center text-red-400 mb-2">Pending Complaints</h2>
-        <table className="w-full text-sm text-left text-gray-300">
-          <thead className="text-xs text-gray-200 uppercase bg-gray-800">
-            <tr>
-              <th className="px-6 py-3">Name</th>
-              <th className="px-6 py-3">Ward</th>
-              <th className="px-6 py-3">Light Type</th>
-              <th className="px-6 py-3">Landmark</th>
-              <th className="px-6 py-3">Address</th>
-              <th className="px-6 py-3">Pole No</th>
-              <th className="px-6 py-3">Area Type</th>
-              <th className="px-6 py-3">Description</th>
-              <th className="px-6 py-3">Image</th>
-              <th className="px-6 py-3">Status</th>
-              <th className="px-6 py-3">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUnresolved.map((item, index) => (
-              <tr key={index} className="border-b border-gray-700 bg-gray-800 hover:bg-gray-700">
-                <td className="px-6 py-4">{item.username}</td>
-                <td className="px-6 py-4">{item.ward}</td>
-                <td className="px-6 py-4">{item.lighttype}</td>
-                <td className="px-6 py-4">{item.landmark}</td>
-                <td className="px-6 py-4">{item.address}</td>
-                <td className="px-6 py-4">{item.poleno}</td>
-                <td className="px-6 py-4">{item.areatype}</td>
-                <td className="px-6 py-4">{item.fullDescription}</td>
-                <td className="px-6 py-4 text-green-400">
-                  <Link to={item.image}>View</Link>
-                </td>
-                <td className="px-6 py-4">
-                  <button
-                    // item._id is the unique id of the complaint comes from MongoDB
-                    onClick={() => toggleStatus(item._id)}
-                    className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
-                  >
-                    {item.status}
-                  </button>
-                </td>
-                <td className="px-6 py-4">
-                  <button
-
-                    onClick={() => deleteHandler(item._id)}
-                    className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
-                  >
-                    Delete
-                  </button>
-                </td>
+      {
+        (filteredUnresolved.length > 0) ? (<div className="relative overflow-x-auto shadow-lg rounded-lg">
+          <h2 className="text-2xl font-semibold text-center text-red-400 mb-2">Pending Complaints</h2>
+          <table className="w-full text-sm text-left text-gray-300">
+            <thead className="text-xs text-gray-200 uppercase bg-gray-800">
+              <tr>
+                <th className="px-6 py-3">Name</th>
+                <th className="px-6 py-3">Ward</th>
+                <th className="px-6 py-3">Light Type</th>
+                <th className="px-6 py-3">Landmark</th>
+                <th className="px-6 py-3">Address</th>
+                <th className="px-6 py-3">Pole No</th>
+                <th className="px-6 py-3">Area Type</th>
+                <th className="px-6 py-3">Description</th>
+                <th className="px-6 py-3">Image</th>
+                <th className="px-6 py-3">Status</th>
+                <th className="px-6 py-3">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filteredUnresolved.map((item, index) => (
+                <tr key={index} className="border-b border-gray-700 bg-gray-800 hover:bg-gray-700">
+                  <td className="px-6 py-4">{item.username}</td>
+                  <td className="px-6 py-4">{item.ward}</td>
+                  <td className="px-6 py-4">{item.lighttype}</td>
+                  <td className="px-6 py-4">{item.landmark}</td>
+                  <td className="px-6 py-4">{item.address}</td>
+                  <td className="px-6 py-4">{item.poleno}</td>
+                  <td className="px-6 py-4">{item.areatype}</td>
+                  <td className="px-6 py-4">{item.fullDescription}</td>
+                  <td className="px-6 py-4 text-green-400">
+                    <Link to={item.image}>View</Link>
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      // item._id is the unique id of the complaint comes from MongoDB
+                      onClick={() => toggleStatus(item._id)}
+                      className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
+                    >
+                      {item.status}
+                    </button>
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
 
+                      onClick={() => deleteHandler(item._id)}
+                      className="bg-red-500 hover:bg-green-500 text-white font-bold py-1 px-3 rounded transition-all"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        ) : (<h2 className="text-2xl font-semibold text-center text-red-400 mb-2">No Pending Complaints</h2>)
+
+      }
       {/* Completed Complaints Table */}
       <div className="mt-8 relative overflow-x-auto shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold text-center text-green-400 mb-2">Completed Complaints</h2>
