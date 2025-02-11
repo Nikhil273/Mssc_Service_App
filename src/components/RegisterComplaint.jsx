@@ -8,18 +8,18 @@ import 'react-toastify/dist/ReactToastify.css';
 const RegisterComplaint = () => {
   const navigate = useNavigate();
   const [username, setName] = useState("");
-  const [lighttype, setLighttype] = useState("");  // Updated casing
+  const [lighttype, setLighttype] = useState("");
   const [address, setAddress] = useState("");
-  const [landmark, setLandmark] = useState("");  // Updated casing
+  const [landmark, setLandmark] = useState("");
   const [ward, setWard] = useState("");
-  const [poleno, setPoleno] = useState("");  // Updated casing
-  const [areatype, setAreatype] = useState("");  // Updated casing
-  const [fullDescription, setDescription] = useState("");  // Fixed spelling
+  const [poleno, setPoleno] = useState("");
+  const [areatype, setAreatype] = useState("");
+  const [fullDescription, setDescription] = useState("");
   const [image, setImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("<-------From RegisterComplaint.jsx------->");
     if (!username || !lighttype || !address || !landmark || !ward || !poleno || !areatype || !fullDescription || !image) {
       toast.error("Please fill out all fields");
       return;
@@ -37,36 +37,34 @@ const RegisterComplaint = () => {
       formData.append('image', image);
 
       const response = await axios.post('http://localhost:3000/api/add', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      console.log(response);
 
       toast.success(response.data.message);
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
-      console.log("Response:", response);
+      setTimeout(() => navigate('/'), 1000);
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred in submitting the complaint");
-      console.error("Error submitting complaint:", error);
     }
   };
+
   return (
-    <div className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg mt-1">
-      <h2 className="text-2xl font-bold text-center text-[#fe6119] mb-2">Register Complaint</h2>
-      <form method="post" onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-2xl mx-auto p-6 bg-gray-900 shadow-xl rounded-xl mt-6 text-white">
+      <h2 className="text-3xl font-semibold text-center text-[#fe6119] mb-4">Register Complaint</h2>
+      <form method="post" onSubmit={handleSubmit} className="space-y-6">
+
         {/* Full Name */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1" htmlFor="username">Full Name</label>
-          <input className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" id="username" type="text" placeholder="Enter your name" value={username} onChange={(e) => setName(e.target.value)} required />
+          <label className="block text-gray-300 font-semibold mb-2" htmlFor="username">Full Name</label>
+          <input className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            id="username" type="text" placeholder="Enter your name"
+            value={username} onChange={(e) => setName(e.target.value)} required />
         </div>
 
-        {/* LED Type */}
+        {/* Light Type */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1">Select LED Type:</label>
-          <select className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" value={lighttype} onChange={(e) => setLighttype(e.target.value)} required>
+          <label className="block text-gray-300 font-semibold mb-2">Select LED Type:</label>
+          <select className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            value={lighttype} onChange={(e) => setLighttype(e.target.value)} required>
             <option value="">Select a Light Type</option>
             {LightType.map((Light) => (
               <option key={Light.value} value={Light.value}>{Light.label}</option>
@@ -76,20 +74,25 @@ const RegisterComplaint = () => {
 
         {/* Address */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1" htmlFor="address">Full Address</label>
-          <input className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" id="address" type="text" placeholder="Enter Full Address" value={address} onChange={(e) => setAddress(e.target.value)} required />
+          <label className="block text-gray-300 font-semibold mb-2" htmlFor="address">Full Address</label>
+          <input className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            id="address" type="text" placeholder="Enter Full Address"
+            value={address} onChange={(e) => setAddress(e.target.value)} required />
         </div>
 
         {/* Landmark */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1" htmlFor="landmark">Landmark</label>
-          <input className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" id="landmark" type="text" placeholder="Landmark" value={landmark} onChange={(e) => setLandmark(e.target.value)} required />
+          <label className="block text-gray-300 font-semibold mb-2" htmlFor="landmark">Landmark</label>
+          <input className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            id="landmark" type="text" placeholder="Landmark"
+            value={landmark} onChange={(e) => setLandmark(e.target.value)} required />
         </div>
 
         {/* Ward */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1">Select a Ward:</label>
-          <select className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" value={ward} onChange={(e) => setWard(e.target.value)} required>
+          <label className="block text-gray-300 font-semibold mb-2">Select a Ward:</label>
+          <select className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            value={ward} onChange={(e) => setWard(e.target.value)} required>
             <option value="">Select a Ward</option>
             {wardData.map((wardItem) => (
               <option key={wardItem.value} value={wardItem}>{wardItem}</option>
@@ -99,14 +102,17 @@ const RegisterComplaint = () => {
 
         {/* Pole No */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1" htmlFor="poleno">Pole Number</label>
-          <input className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" id="poleno" type="text" placeholder="Enter Pole Number" value={poleno} onChange={(e) => setPoleno(e.target.value)} required />
+          <label className="block text-gray-300 font-semibold mb-2" htmlFor="poleno">Pole Number</label>
+          <input className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            id="poleno" type="text" placeholder="Enter Pole Number"
+            value={poleno} onChange={(e) => setPoleno(e.target.value)} required />
         </div>
 
         {/* Area Type */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1">Select Area Type:</label>
-          <select className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" value={areatype} onChange={(e) => setAreatype(e.target.value)} required>
+          <label className="block text-gray-300 font-semibold mb-2">Select Area Type:</label>
+          <select className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            value={areatype} onChange={(e) => setAreatype(e.target.value)} required>
             <option value="">Select Area Type</option>
             {AreaType.map((area) => (
               <option key={area.value} value={area.value}>{area.label}</option>
@@ -116,17 +122,23 @@ const RegisterComplaint = () => {
 
         {/* Description */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1" htmlFor="fullDescription">Description</label>
-          <textarea className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" id="fullDescription" placeholder="Enter your description" value={fullDescription} onChange={(e) => setDescription(e.target.value)} required />
+          <label className="block text-gray-300 font-semibold mb-2" htmlFor="fullDescription">Description</label>
+          <textarea className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            id="fullDescription" placeholder="Enter your description"
+            value={fullDescription} onChange={(e) => setDescription(e.target.value)} required />
         </div>
 
-        {/* Image */}
+        {/* Image Upload */}
         <div>
-          <label className="block text-gray-700 font-bold mb-1">Upload Image</label>
-          <input className="w-full p-2 border rounded focus:ring-2 focus:ring-[#fe6119]" onChange={(e) => setImage(e.target.files[0])} type="file" id="img" />
+          <label className="block text-gray-300 font-semibold mb-2">Upload Image</label>
+          <input className="w-full p-3 border rounded-lg bg-gray-800 text-white focus:ring-2 focus:ring-[#fe6119] outline-none"
+            type="file" onChange={(e) => setImage(e.target.files[0])} required />
         </div>
 
-        <button className="w-full bg-[#fe6119] hover:bg-[#d45415] text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#fe6119]">Register Complaint</button>
+        {/* Submit Button */}
+        <button className="w-full bg-[#fe6119] hover:bg-[#d45415] transition-all duration-300 text-white font-bold py-3 px-6 rounded-lg focus:ring-2 focus:ring-[#fe6119] shadow-lg">
+          Register Complaint
+        </button>
       </form>
       <ToastContainer />
     </div>
