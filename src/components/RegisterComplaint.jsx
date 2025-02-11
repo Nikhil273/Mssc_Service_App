@@ -41,7 +41,7 @@ const RegisterComplaint = () => {
       const response = await axios.post("http://localhost:3000/api/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+      console.log("Response after submitting complaint:", response.data);
       toast.success(response.data.message);
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
