@@ -20,8 +20,8 @@ const RegisterComplaint = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("<-------From RegisterComplaint.jsx------->");
-    if (!username || !lighttype || !address || !landmark || !ward || !poleno || !areatype || !fullDescription || !image) {
-      toast.error("Please fill out all fields");
+    if (!username || !lighttype || !address || !landmark || !ward || !poleno || !areatype) {
+      toast.error("Please Fill Out All Fields");
       return;
     }
     try {
