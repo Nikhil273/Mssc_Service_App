@@ -43,7 +43,7 @@ const RegisterComplaint = () => {
       toast.success(response.data.message);
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred in submitting the complaint");
+      toast.error(error || "An error occurred in submitting the complaint");
     }
   };
 
@@ -184,7 +184,6 @@ const RegisterComplaint = () => {
               placeholder="Enter your description"
               value={fullDescription}
               onChange={(e) => setDescription(e.target.value)}
-              required
             />
           </div>
 
@@ -194,7 +193,6 @@ const RegisterComplaint = () => {
               className="w-full p-3 border rounded-lg bg-gray-700 text-white"
               type="file"
               onChange={(e) => setImage(e.target.files[0])}
-              required
             />
           </div>
         </div>
